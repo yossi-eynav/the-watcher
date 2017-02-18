@@ -28,7 +28,7 @@ func (c Commit) SendNotification() bool {
 	if result {
 		return false
 	} else {
-		fmt.Printf("Push notification the commit - %c \n", c.Hash)
+		fmt.Printf("Pushed the commit %s by %s \n", c.Hash, c.Author)
 		exec.Command("osx-notifier", "--type", "info", "--message", c.Subject, "--title", "The Watcher", "--open", "https://github.com/fiverr/5rr_v2/commit/"+c.Hash, "--subtitle", c.Author).Run()
 		return true
 	}
