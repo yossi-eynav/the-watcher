@@ -24,7 +24,7 @@ func setOptions() (string, []string) {
 }
 
 func main() {
-	fmt.Println("Make sure you installed this tool before - https://github.com/chbrown/osx-notifier")
+	lib.Commit{Author: "Yossi E", Subject: "This is the subject", Hash: "123123"}.SendNotification()
 	ch := make(chan string)
 	repositoryPath, fileNames := setOptions()
 	fmt.Printf("Running with these options:\nrepositoryPath=%s, fileNames=%s", repositoryPath, fileNames)

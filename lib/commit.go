@@ -2,8 +2,8 @@ package lib
 
 import (
 	"fmt"
-	"os/exec"
 
+	"github.com/deckarep/gosx-notifier"
 	redis "gopkg.in/redis.v5"
 )
 
@@ -29,7 +29,28 @@ func (c Commit) SendNotification() bool {
 		return false
 	} else {
 		fmt.Printf("Pushed the commit %s by %s \n", c.Hash, c.Author)
-		exec.Command("osx-notifier", "--type", "info", "--message", c.Subject, "--title", "The Watcher", "--open", "https://github.com/fiverr/5rr_v2/commit/"+c.Hash, "--subtitle", c.Author).Run()
+
+		note := gosxnotifier.NewNotification(c.Subject)
+
+		note.Title = "The Watcher"
+
+		//Optionally, set a subtitle
+		note.Subtitle = c.Author
+
+		//Optionally, set a sound from a predefined set.
+		note.Sound = gosxnotifier.Basso
+
+		//Optionally, specifiy a url or bundleid to open should the notification be
+		//clicked.
+		note.Sender = "com.apple.Safari"
+		note.Link = "https://github.com/fiverr/5rr_v2/commit/" + c.Hash
+
+		//Optionally, an app icon (10.9+ ONLY)
+		note.AppIcon = "assets/code.png"
+
+		//Then, push the notification
+		note.Push()
+
 		return true
 	}
 }
