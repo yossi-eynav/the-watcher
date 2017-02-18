@@ -1,0 +1,41 @@
+{
+	"ImportPath": "github.com/yossi-eynav/the-watcher",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/deckarep/gosx-notifier",
+			"Rev": "61a88900fb062ed8c63828adf4d7b58463b61f78"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v5",
+			"Comment": "v5.2.4",
+			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v5/internal",
+			"Comment": "v5.2.4",
+			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v5/internal/consistenthash",
+			"Comment": "v5.2.4",
+			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v5/internal/hashtag",
+			"Comment": "v5.2.4",
+			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v5/internal/pool",
+			"Comment": "v5.2.4",
+			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v5/internal/proto",
+			"Comment": "v5.2.4",
+			"Rev": "2fe9c5cc0a8da9faeba3a45511a4ece8f7e37dc2"
+		}
+	]
+}
