@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 	"time"
 
 	"strings"
@@ -17,7 +18,7 @@ func setOptions() (string, []string) {
 	files := flag.String("files", "", "a string")
 	flag.Parse()
 	if len(*repositoryPath) == 0 {
-		panic("Please enter a valid repositoryPath")
+		os.Exit(1)
 	}
 	return *repositoryPath, strings.Split(*files, ",")
 }
