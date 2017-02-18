@@ -24,7 +24,6 @@ func setOptions() (string, []string) {
 }
 
 func main() {
-	lib.Commit{Author: "Yossi E", Subject: "This is the subject", Hash: "123123"}.SendNotification()
 	ch := make(chan string)
 	repositoryPath, fileNames := setOptions()
 	fmt.Printf("Running with these options:\nrepositoryPath=%s, fileNames=%s", repositoryPath, fileNames)
