@@ -40,6 +40,6 @@ func main() {
 	}()
 
 	for {
-		Git.LogParser(<-ch)
+		go Git.LogParser(<-ch)
 	}
 }

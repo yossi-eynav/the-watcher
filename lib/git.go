@@ -17,7 +17,10 @@ func (g Git) LogParser(rawGitLog string) {
 	}
 
 	commit := Commit{Hash: log[0], Author: log[1], Subject: log[2]}
-	commit.SendNotification()
+	err := commit.SendNotification()
+	if !err {
+		return
+	}
 	commit.Save()
 }
 
@@ -27,9 +30,14 @@ func (g Git) Fetch() {
 	cmd.Run()
 }
 
-func (g Git) Log(ch chan string, filename string) {
+func (g Git) Log(ch chan string, filename string) error {
 	cmd := exec.Command("git", "log", "--oneline", "--all", "--pretty=%H~%an~%s", `--since="5 minutes ago"`, `*/`+filename+"*")
 	cmd.Dir = g.RepositoryPath
-	output, _ := cmd.Output()
+	output, err := cmd.Output()
+	if err != nil {
+		return err
+	}
+
 	ch <- string(output)
+	return nil
 }

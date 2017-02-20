@@ -19,38 +19,32 @@ type Commit struct {
 	Subject string
 }
 
-func (c Commit) Save() {
-	redisClient.SAdd(commitsRedisKey, c.Hash)
+func (c Commit) Save() error {
+	err := redisClient.SAdd(commitsRedisKey, c.Hash).Err()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c Commit) SendNotification() bool {
-	result := redisClient.SIsMember(commitsRedisKey, c.Hash).Val()
-	if result {
+	result, err := redisClient.SIsMember(commitsRedisKey, c.Hash).Result()
+	if result || err != nil {
 		return false
-	} else {
-		fmt.Printf("Pushed the commit %s by %s \n", c.Hash, c.Author)
-
-		note := gosxnotifier.NewNotification(c.Subject)
-
-		note.Title = "The Watcher"
-
-		//Optionally, set a subtitle
-		note.Subtitle = c.Author
-
-		//Optionally, set a sound from a predefined set.
-		note.Sound = gosxnotifier.Basso
-
-		//Optionally, specifiy a url or bundleid to open should the notification be
-		//clicked.
-		note.Sender = "com.apple.Safari"
-		note.Link = "https://github.com/fiverr/5rr_v2/commit/" + c.Hash
-
-		//Optionally, an app icon (10.9+ ONLY)
-		note.AppIcon = "assets/code.png"
-
-		//Then, push the notification
-		note.Push()
-
-		return true
 	}
+
+	fmt.Printf("\r\nPushed the commit %s by %s \n", c.Hash, c.Author)
+	note := gosxnotifier.NewNotification(c.Subject)
+	note.Title = "The Watcher"
+	note.Subtitle = c.Author
+	note.Sound = gosxnotifier.Basso
+	note.Sender = "com.apple.Safari"
+	note.Link = "https://github.com/fiverr/5rr_v2/commit/" + c.Hash
+	note.AppIcon = "assets/code.png"
+	err = note.Push()
+	if err != nil {
+		return false
+	}
+
+	return true
 }
